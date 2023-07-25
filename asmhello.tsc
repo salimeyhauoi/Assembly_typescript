@@ -1,0 +1,9 @@
+(async () => {
+  const response = await fetch('hello.wasm');
+  const buffer = await response.arrayBuffer();
+  const module = await WebAssembly.compile(buffer);
+  const instance = await WebAssembly.instantiate(module);
+  const func= instance.exports.sayHello as CallableFunction;
+
+  func();
+})();
